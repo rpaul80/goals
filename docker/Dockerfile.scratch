@@ -1,0 +1,7 @@
+FROM  ubuntu:16.04
+
+RUN apt-get update
+RUN apt-get install -y postgresql-client
+
+WORKDIR /go/src/github.com/rpaul80/goals/docker
+ENTRYPOINT sh setup_db.sh

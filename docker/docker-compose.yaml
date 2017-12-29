@@ -1,0 +1,31 @@
+version: '3'
+services:
+  db:
+    image: postgres
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+
+  app:
+    build: 
+      context: ../
+      dockerfile: docker/Dockerfile
+    ports:
+      - "9000:9000"
+    volumes:
+      - "../:/go/src/github.com/rpaul80/goals"
+    depends_on:
+      - db
+  
+  scratch:
+    build:
+      context: ../
+      dockerfile: docker/Dockerfile.scratch
+    depends_on:
+      - app
+    volumes:
+      - "../:/go/src/github.com/rpaul80/goals"
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_HOST: db
