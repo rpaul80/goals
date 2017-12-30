@@ -7,7 +7,10 @@ module:testrunner
 # module:jobs
 
 
-GET     /api/goals                                      App.Index
+GET     /                                       App.Index
+
+GET /circles/:id                                Circles.Show
+GET /circles/:circle_id/goals/:goal_id          Goals.Show
 
 # Ignore favicon requests
 GET     /favicon.ico                            404
