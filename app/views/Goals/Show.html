@@ -169,12 +169,15 @@ footer p {
       <div class="container">
         <div class="row">
           <div class="card">
+            <p class="card-text">
+                <strong>{{ .g.User.FirstName }} {{ .g.User.LastName }}</strong>
+            </p>
             <img data-src="holder.js/100px280/thumb?text={{.g.Title}}" alt="Card image cap">
             <p class="card-text">{{.g.Description}}</p>
-            <p>{{ .g.User.FirstName }}</p>
-            <p>Reactions</p>
             {{ range .g.Comments }}
-                <p>{{ .Body }} </p>
+                <p class="card-text">
+                    <strong>{{ .User.Name }}</strong> {{ .Body }}
+                </p>
             {{ end }}
         </div>
       </div>

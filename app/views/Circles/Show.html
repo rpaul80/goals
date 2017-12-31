@@ -1,32 +1,6 @@
 {{set . "title" "Home"}}
 {{template "header.html" .}}
 <style type="text/css">
-body {
-  min-height: 75rem; /* Can be removed; just added for demo purposes */
-}
-
-.navbar {
-  margin-bottom: 0;
-}
-
-.jumbotron {
-  padding-top: 6rem;
-  padding-bottom: 6rem;
-  margin-bottom: 0;
-  background-color: #fff;
-}
-
-.jumbotron p:last-child {
-  margin-bottom: 0;
-}
-
-.jumbotron-heading {
-  font-weight: 300;
-}
-
-.jumbotron .container {
-  max-width: 40rem;
-}
 
 .album {
   min-height: 50rem; /* Can be removed; just added for demo purposes */
@@ -61,6 +35,8 @@ footer p {
 }
 </style>
 
+{{$circle := .circle }}
+
 <section class="jumbotron text-center">
     <div class="container">
       <h1 class="jumbotron-heading">{{ .circle.Title }} </h1>
@@ -77,13 +53,14 @@ footer p {
         <div class="row">
           {{ range .goals }}
           <div class="card">
-            <img data-src="holder.js/100px280/thumb?text={{.Title}}" alt="Card image cap">
+            <a href="{{ url "Goals.Show" $circle.Id .Id }}">
+                <img data-src="holder.js/100px280/thumb?text={{.Title}}" alt="Card image cap">
+            </a>
             <p class="card-text">{{.Description}}</p>
             <p>{{ .User.FirstName }}</p>
           </div>
           {{ end }}
         </div>
-
       </div>
     </div>
 {{template "footer.html" .}}

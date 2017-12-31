@@ -12,7 +12,7 @@ type Goals struct {
 
 // Shows a single Goal record including any activity on it
 func (c Goals) Show(circle_id string, goal_id string) revel.Result {
-	goalStmt, err := app.DB.Prepare("select goals.id, goals.title, goals.description, goals.created, goals.updated from goals where goals.id=$1")
+	goalStmt, err := app.DB.Prepare("select goals.id, goals.title, goals.description, goals.created, goals.updated, users.id, users.first_name, users.last_name from goals inner join users on goals.user_id=users.id where goals.id=$1")
 	if err != nil {
 		revel.AppLog.Error(err.Error())
 		return c.RenderError(err)
@@ -20,7 +20,7 @@ func (c Goals) Show(circle_id string, goal_id string) revel.Result {
 
 	goalRow := goalStmt.QueryRow(goal_id)
 	g := models.Goal{}
-	err = goalRow.Scan(&g.Id, &g.Title, &g.Description, &g.Created, &g.Updated)
+	err = goalRow.Scan(&g.Id, &g.Title, &g.Description, &g.Created, &g.Updated, &g.User.Id, &g.User.FirstName, &g.User.LastName)
 	if err != nil {
 		revel.AppLog.Error(err.Error())
 	}
